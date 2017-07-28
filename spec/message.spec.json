@@ -1,0 +1,55 @@
+{
+    "JSONSpec": {
+        "version": "2"
+    },
+    "type": {
+        "header": {
+            "version": "String",
+            "messageId": "#MessageID",
+            "replyTo?": "#MessageID",
+            "from": "#ID",
+            "to": "#ID",
+            "channel": "#StandardChannel | #VendorSpecificChannel"
+        },
+        "body?": {
+            "contentType": "MediaType",
+            "content": "String | Base64encodedBinary"
+        }
+    },
+    "typedefs": {
+        "#MessageID": {
+            "type": "String",
+            "doc": {
+                "content": "strict aligned 64bit integer contains timestamp, sender and recipient"
+            }
+        },
+        "#ID": {
+            "type": "String",
+            "constraint": {
+                "$": {
+                    "matches": "\\w+@\\w+(\\.\\w+)*"
+                }
+            },
+            "doc": {
+                "content": "e.g. a@b.com localadmin@localhost root@machine"
+            }
+        },
+
+        "#StandardChannel": {
+            "type": "String",
+            "constraint": {
+                "oneOf": ["..."]
+            }
+        },
+
+        "#VendorSpecificChannel": {
+            "type": "String",
+            "constraint": {
+                "matches": "x-(\\w+)(-\\w+)*"
+            },
+            "doc": {
+                "content": "e.g. x-tencent-qqshow"
+            }
+        }
+    }
+}
